@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 
 export function LoginClient({ returnTo }: { returnTo: string }) {
-  const [email, setEmail] = useState("abhispacesoni@gmail.com");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");

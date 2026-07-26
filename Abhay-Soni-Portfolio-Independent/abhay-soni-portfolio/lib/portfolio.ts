@@ -237,7 +237,7 @@ export async function getPortfolioItems(
   kind?: PortfolioItem["kind"],
 ): Promise<PortfolioItem[]> {
   try {
-    await seedPortfolioItems();
+   
     const db = await getDb();
     if (kind) {
       return await db

@@ -1,0 +1,1 @@
+export { getAdminUser } from "./auth";

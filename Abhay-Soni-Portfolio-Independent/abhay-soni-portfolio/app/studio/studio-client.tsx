@@ -159,21 +159,14 @@ export function StudioClient({
         <button className="studio-new" type="button" onClick={createNew}>
           <span>＋</span> Write new blog
         </button>
-        <Link
-          className="studio-manage-link"
-          href="/studio/portfolio?section=skill"
-        >
-          <span>◆</span>
-          Edit skills
-        </Link>
-        <Link
-          className="studio-manage-link"
-          href="/studio/portfolio?section=certificate"
-        >
-          <span>◇</span>
-          Edit certificates
-        </Link>
-
+      <Link
+  className="studio-manage-link"
+  href="/studio/portfolio"
+>
+  <span>◇</span>
+  Manage portfolio
+</Link>
+        
         <div className="studio-stats">
           <span>
             <strong>{stats.published}</strong> Published

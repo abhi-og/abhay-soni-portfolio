@@ -13,6 +13,7 @@ export function SiteHeader() {
         <SectionLink section="work">Work</SectionLink>
         <SectionLink section="about">About</SectionLink>
         <SectionLink section="skills">Skills</SectionLink>
+        <SectionLink section="certificates">Certificates</SectionLink>
         <SectionLink section="writing">Writing</SectionLink>
         <SectionLink section="contact">Contact</SectionLink>
       </nav>

@@ -19,7 +19,7 @@ export function SiteHeader() {
       <div className="header-actions">
         <ThemeToggle />
         <Link className="header-cta" href="/resume">
-          Résumé <span aria-hidden="true">↗</span>
+          Resume <span aria-hidden="true">↗</span>
         </Link>
       </div>
     </header>

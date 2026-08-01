@@ -37,7 +37,6 @@ The website is automatically built and deployed to Cloudflare whenever changes a
 Computer Science and Artificial Intelligence student
 
 - [Portfolio](https://abhaysoni.dpdns.org)
-- [GitHub](https://github.com/abhi-og)
 - [LinkedIn](https://www.linkedin.com/in/abhay-soni-650b13410)
 
 ## License

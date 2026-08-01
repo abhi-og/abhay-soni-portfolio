@@ -2799,10 +2799,17 @@ a {
     break-inside: avoid;
   }
 }
+.back-to-top-row {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  margin-bottom: 28px;
+}
+
 .back-to-top {
-  display: block;
+  display: inline-block;
   width: fit-content;
-  margin: 0 0 28px auto;
   padding-bottom: 4px;
   color: inherit;
   font-weight: 700;

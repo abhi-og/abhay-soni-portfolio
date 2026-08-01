@@ -16,15 +16,15 @@ export default async function Home() {
   ]);
  const homepageProjects = projects
   .filter((project) => project.featured)
-  .slice(0, 4);
+  .slice(0, 6);
 
 const homepageSkills = skills
   .filter((skill) => skill.featured)
-  .slice(0, 4);
+  .slice(0, 6);
 
 const homepageCertificates = certificates
   .filter((certificate) => certificate.featured)
-  .slice(0, 4);
+  .slice(0, 6);
 
   return (
     <main>

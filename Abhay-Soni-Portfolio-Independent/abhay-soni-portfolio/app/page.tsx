@@ -14,6 +14,16 @@ export default async function Home() {
     getPortfolioItems("certificate"),
     getPortfolioItems("education"),
   ]);
+  const featuredProjects = projects.filter((project) => project.featured).slice(0, 4);
+  const homepageProjects = featuredProjects.length ? featuredProjects : projects.slice(0, 4);
+  const featuredSkills = skills.filter((skill) => skill.featured).slice(0, 4);
+  const homepageSkills = featuredSkills.length ? featuredSkills : skills.slice(0, 4);
+  const featuredCertificates = certificates
+    .filter((certificate) => certificate.featured)
+    .slice(0, 4);
+  const homepageCertificates = featuredCertificates.length
+    ? featuredCertificates
+    : certificates.slice(0, 4);
 
   return (
     <main>
@@ -87,7 +97,7 @@ export default async function Home() {
           </div>
 
           <div className="project-list">
-            {projects.map((project, index) => (
+            {homepageProjects.map((project, index) => (
               <article className="project-card reveal" key={project.slug}>
                 <div className={`project-visual ${index % 2 ? "sage" : "clay"}`}>
                   <span className="project-number">
@@ -113,6 +123,11 @@ export default async function Home() {
                 </div>
               </article>
             ))}
+          </div>
+          <div className="section-action">
+            <Link className="button button-dark" href="/projects">
+              View all projects <span aria-hidden="true">→</span>
+            </Link>
           </div>
         </section>
 
@@ -166,7 +181,7 @@ export default async function Home() {
             </p>
           </div>
           <div className="skills-grid">
-            {skills.map((skill, index) => (
+            {homepageSkills.map((skill, index) => (
               <article className="skill-card reveal" key={skill.slug}>
                 <span>{String(index + 1).padStart(2, "0")}</span>
                 <p>{skill.subtitle}</p>
@@ -175,6 +190,11 @@ export default async function Home() {
                 <div>{splitTags(skill.tags).join(" · ")}</div>
               </article>
             ))}
+          </div>
+          <div className="section-action">
+            <Link className="button button-dark" href="/skills">
+              View all skills <span aria-hidden="true">→</span>
+            </Link>
           </div>
         </section>
 
@@ -190,7 +210,7 @@ export default async function Home() {
             </p>
           </div>
           <div className="certificate-showcase">
-            {certificates.map((certificate, index) => (
+            {homepageCertificates.map((certificate, index) => (
               <article className="certificate-card reveal" key={certificate.slug}>
                 <div className="certificate-card-top">
                   <span className="certificate-seal" aria-hidden="true">
@@ -228,6 +248,11 @@ export default async function Home() {
                 </div>
               </article>
             ))}
+          </div>
+          <div className="section-action">
+            <Link className="button button-dark" href="/certificates">
+              View all certificates <span aria-hidden="true">→</span>
+            </Link>
           </div>
         </section>
 

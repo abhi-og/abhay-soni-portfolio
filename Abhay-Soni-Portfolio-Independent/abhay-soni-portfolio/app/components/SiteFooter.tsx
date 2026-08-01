@@ -22,6 +22,9 @@ export function SiteFooter() {
           LinkedIn
         </a>
         <a href="/studio">Owner login</a>
+        <a href="#" className="back-to-top">
+        Back to top ↑
+        </a>
       </div>
       <p className="footer-note">
         © {new Date().getFullYear()} Abhay Soni. Built with curiosity.

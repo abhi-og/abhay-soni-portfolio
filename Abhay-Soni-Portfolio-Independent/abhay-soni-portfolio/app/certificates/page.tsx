@@ -20,7 +20,7 @@ export default async function CertificatesPage() {
     <main>
       <div className="page-shell">
         <SiteHeader />
-        <Link className="text-link archive-back-link" href="/">
+        <Link className="text-link archive-back-link" href="/#certificates">
           ← Back to homepage
         </Link>
         <section className="projects-hero">

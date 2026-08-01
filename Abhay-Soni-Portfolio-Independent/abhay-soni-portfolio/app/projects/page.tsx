@@ -26,7 +26,7 @@ export default async function ProjectsPage() {
     <main>
       <div className="page-shell">
         <SiteHeader />
-        <Link className="text-link archive-back-link" href="/">
+        <Link className="text-link archive-back-link" href="/#work">
           ← Back to homepage
         </Link>
         <section className="projects-hero">

@@ -14,16 +14,17 @@ export default async function Home() {
     getPortfolioItems("certificate"),
     getPortfolioItems("education"),
   ]);
-  const featuredProjects = projects.filter((project) => project.featured).slice(0, 4);
-  const homepageProjects = featuredProjects.length ? featuredProjects : projects.slice(0, 4);
-  const featuredSkills = skills.filter((skill) => skill.featured).slice(0, 4);
-  const homepageSkills = featuredSkills.length ? featuredSkills : skills.slice(0, 4);
-  const featuredCertificates = certificates
-    .filter((certificate) => certificate.featured)
-    .slice(0, 4);
-  const homepageCertificates = featuredCertificates.length
-    ? featuredCertificates
-    : certificates.slice(0, 4);
+ const homepageProjects = projects
+  .filter((project) => project.featured)
+  .slice(0, 4);
+
+const homepageSkills = skills
+  .filter((skill) => skill.featured)
+  .slice(0, 4);
+
+const homepageCertificates = certificates
+  .filter((certificate) => certificate.featured)
+  .slice(0, 4);
 
   return (
     <main>

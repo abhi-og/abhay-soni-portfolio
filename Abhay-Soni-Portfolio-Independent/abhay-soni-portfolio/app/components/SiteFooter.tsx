@@ -1,6 +1,10 @@
 export function SiteFooter() {
   return (
     <footer className="site-footer">
+       <a href="#" className="back-to-top">
+    Back to top ↑
+  </a>
+      
       <div>
         <p className="footer-kicker">Let&apos;s make something useful.</p>
         <p className="footer-title">Have an idea worth building?</p>

@@ -50,7 +50,7 @@ export default async function Home() {
                 Explore my work <span aria-hidden="true">↓</span>
               </Link>
               <Link className="text-link" href="/resume">
-                View résumé <span aria-hidden="true">↗</span>
+                View resume <span aria-hidden="true">↗</span>
               </Link>
               <Link className="text-link" href="/blog">
                 Read the journal <span aria-hidden="true">↗</span>
@@ -273,7 +273,7 @@ export default async function Home() {
             ))}
           </div>
           <Link className="button button-light" href="/resume">
-            Open full résumé <span aria-hidden="true">↗</span>
+            Open full resume <span aria-hidden="true">↗</span>
           </Link>
         </section>
 

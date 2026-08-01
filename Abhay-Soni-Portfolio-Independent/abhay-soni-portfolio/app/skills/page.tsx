@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { Metadata } from "next";
 import { CollectionExplorer } from "../components/CollectionExplorer";
 import { SiteFooter } from "../components/SiteFooter";
@@ -19,6 +20,9 @@ export default async function SkillsPage() {
     <main>
       <div className="page-shell">
         <SiteHeader />
+        <Link className="text-link archive-back-link" href="/">
+          ← Back to homepage
+        </Link>
         <section className="projects-hero">
           <p className="eyebrow"><span className="eyebrow-line" />Skill archive</p>
           <h1>Tools, technologies, and capabilities.</h1>

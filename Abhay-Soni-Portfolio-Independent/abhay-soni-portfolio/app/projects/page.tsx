@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { Metadata } from "next";
 import { ProjectExplorer } from "../components/ProjectExplorer";
 import { SiteFooter } from "../components/SiteFooter";
@@ -25,6 +26,9 @@ export default async function ProjectsPage() {
     <main>
       <div className="page-shell">
         <SiteHeader />
+        <Link className="text-link archive-back-link" href="/">
+          ← Back to homepage
+        </Link>
         <section className="projects-hero">
           <p className="eyebrow">
             <span className="eyebrow-line" />

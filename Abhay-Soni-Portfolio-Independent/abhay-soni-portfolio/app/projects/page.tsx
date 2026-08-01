@@ -26,9 +26,11 @@ export default async function ProjectsPage() {
     <main>
       <div className="page-shell">
         <SiteHeader />
+        <div className="archive-back-row">
         <Link className="text-link archive-back-link" href="/#work">
           ← Back to homepage
         </Link>
+          </div>
         <section className="projects-hero">
           <p className="eyebrow">
             <span className="eyebrow-line" />

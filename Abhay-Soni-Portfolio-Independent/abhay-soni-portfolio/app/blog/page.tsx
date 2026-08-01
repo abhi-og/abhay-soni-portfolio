@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { Metadata } from "next";
 import { BlogExplorer } from "../components/BlogExplorer";
 import { SiteFooter } from "../components/SiteFooter";
@@ -26,6 +27,9 @@ export default async function BlogPage() {
     <main>
       <div className="page-shell">
         <SiteHeader />
+        <Link className="text-link archive-back-link" href="/#writing">
+  ← Back to homepage
+</Link>
         <section className="journal-hero">
           <p className="eyebrow">
             <span className="eyebrow-line" />

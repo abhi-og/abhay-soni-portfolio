@@ -2799,3 +2799,17 @@ a {
     break-inside: avoid;
   }
 }
+.back-to-top {
+  display: block;
+  width: fit-content;
+  margin: 0 0 28px auto;
+  padding-bottom: 4px;
+  color: inherit;
+  font-weight: 700;
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+}
+
+.back-to-top:hover {
+  opacity: 0.65;
+}

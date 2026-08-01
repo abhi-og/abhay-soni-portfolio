@@ -1,22 +1,28 @@
 # Abhay Soni — Personal Portfolio
 
-My personal portfolio and blog website, built to showcase my projects, skills, certifications, education, and learning journey.
+A modern, responsive portfolio website where I showcase my projects, technical skills, certifications, education, and learning journey through blogs.
 
 ## Live Website
 
-[Visit my portfolio](https://abhaysoni.dpdns.org)
+🌐 [abhaysoni.dpdns.org](https://abhaysoni.dpdns.org)
 
-## Features
+## About This Project
 
-- Personal introduction and contact information
-- Projects, skills, certificates, and education sections
-- Searchable project and portfolio archives
-- Blog and writing journal
+I built this portfolio as a personal space to document what I create and learn. Along with the public portfolio, it includes a private content studio that allows me to manage projects, skills, certificates, education, and blog articles.
+
+## Key Features
+
+- Responsive design for mobile and desktop
+- Project, skill, and certificate archives
+- Search and filtering
+- Personal blog and writing section
 - Private owner login and content studio
-- Responsive light and dark design
-- Custom domain and Google Search Console integration
+- Cloudflare D1 database integration
+- Dynamic sitemap for search engines
+- Custom domain and secure deployment
+- Automatic deployment through GitHub
 
-## Tech Stack
+## Technology Stack
 
 - Next.js
 - React
@@ -27,18 +33,14 @@ My personal portfolio and blog website, built to showcase my projects, skills, c
 - Drizzle ORM
 - GitHub
 
-## Deployment
-
-The website is automatically built and deployed to Cloudflare whenever changes are committed to the `main` branch.
-
 ## Author
 
 **Abhay Soni**  
-Computer Science and Artificial Intelligence student
+Computer Science & Artificial Intelligence Student
 
 - [Portfolio](https://abhaysoni.dpdns.org)
 - [LinkedIn](https://www.linkedin.com/in/abhay-soni-650b13410)
 
-## License
+---
 
-This repository contains my personal portfolio content and code. Please contact me before reusing substantial parts of the design or content.
+Built with curiosity, learning, and continuous improvement.

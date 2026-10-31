@@ -72,34 +72,13 @@ export function MotionEffects() {
     }, 4000);
 
     // 2. Header state + a very small reading-progress signal.
-    // Scroll-linked depth: small enough to feel natural, while native scroll
-    // remains fast and accessible on trackpads, touch devices, and keyboards.
-    const depthTargets = Array.from(
-      document.querySelectorAll<HTMLElement>(
-        ".project-card, .skill-card, .certificate-card, .section-heading, .about-statement",
-      ),
-    );
-    let scrollRaf = 0;
-    const updateScrollDepth = () => {
-      const viewportCenter = window.innerHeight / 2;
-      depthTargets.forEach((el) => {
-        const rect = el.getBoundingClientRect();
-        const distance = (rect.top + rect.height / 2 - viewportCenter) / window.innerHeight;
-        const shift = Math.max(-14, Math.min(14, distance * -18));
-        // Individual translate composes safely with existing card hover transforms.
-        el.style.translate = `0 ${shift.toFixed(2)}px`;
-      });
-    };
     const onScroll = () => {
       root.classList.toggle("is-scrolled", window.scrollY > 24);
       const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
       root.style.setProperty("--scroll-progress", String(Math.min(1, window.scrollY / maxScroll)));
-      cancelAnimationFrame(scrollRaf);
-      scrollRaf = requestAnimationFrame(updateScrollDepth);
     };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll, { passive: true });
 
     // 3. Hero cursor glow (fine pointers only)
     const hero = document.querySelector<HTMLElement>(".hero");
@@ -218,16 +197,13 @@ export function MotionEffects() {
       mo.disconnect();
       window.clearTimeout(rescue);
       window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
       if (hero && fine) hero.removeEventListener("pointermove", onMove);
       if (fine) magnetic.forEach((el) => resetMagnetic(el));
       if (fine) tiltCards.forEach((el) => resetTilt(el));
       document.removeEventListener("pointerdown", onInteractivePress, true);
       window.removeEventListener("portfolio-sound-change", syncSoundSetting);
-      depthTargets.forEach((el) => { el.style.translate = ""; });
       root.style.removeProperty("--scroll-progress");
       cancelAnimationFrame(raf);
-      cancelAnimationFrame(scrollRaf);
       root.classList.remove("motion-ready", "is-scrolled");
     };
   }, []);

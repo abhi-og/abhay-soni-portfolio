@@ -207,32 +207,6 @@ html.is-scrolled .site-header {
 .tag-list li { transition: background 200ms ease, color 200ms ease, transform 200ms ease; }
 .project-card:hover .tag-list li { transform: translateY(-2px); }
 
-/* ---------- Scroll stack: a calmer, editorial project journey ---------- */
-/* Larger screens turn the featured work list into a light card stack. Each
-   incoming project rests over the previous one, without changing mobile flow. */
-@media (min-width: 901px) {
-  .project-list {
-    display: block;
-    border: 0;
-    background: transparent;
-  }
-  .project-list .project-card {
-    position: sticky;
-    top: 92px;
-    margin-bottom: 11vh;
-    overflow: hidden;
-    border: 1px solid var(--line);
-    box-shadow: 0 24px 65px -44px rgba(12, 10, 20, .65);
-    transform-origin: center top;
-  }
-  .project-list .project-card:nth-child(2) { top: 108px; }
-  .project-list .project-card:nth-child(3) { top: 124px; }
-  .project-list .project-card:nth-child(4) { top: 140px; }
-  .project-list .project-card:nth-child(5) { top: 156px; }
-  .project-list .project-card:nth-child(6) { top: 172px; }
-  .project-list .project-card:last-child { margin-bottom: 0; }
-}
-
 /* ---------- Skill / certificate cards ---------- */
 .skill-card,
 .certificate-card {

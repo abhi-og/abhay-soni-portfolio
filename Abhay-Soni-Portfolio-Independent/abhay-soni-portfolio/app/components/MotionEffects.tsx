@@ -151,13 +151,19 @@ export function MotionEffects() {
       if (audio.state === "suspended") void audio.resume();
       return audio;
     };
-    const tone = (frequency: number, duration: number, volume: number, offset = 0) => {
+    const tone = (
+      frequency: number,
+      duration: number,
+      volume: number,
+      offset = 0,
+      type: OscillatorType = "sine",
+    ) => {
       if (!soundEnabledRef.current) return;
       const context = getAudio();
       if (!context) return;
       const oscillator = context.createOscillator();
       const gain = context.createGain();
-      oscillator.type = "sine";
+      oscillator.type = type;
       oscillator.frequency.setValueAtTime(frequency, context.currentTime + offset);
       gain.gain.setValueAtTime(0.0001, context.currentTime + offset);
       gain.gain.exponentialRampToValueAtTime(volume, context.currentTime + offset + 0.012);
@@ -170,10 +176,14 @@ export function MotionEffects() {
       const target = event.target instanceof Element ? event.target.closest("button, a, label, input, select") : null;
       if (!target || target.hasAttribute("data-sound-toggle")) return;
       if (target.classList.contains("skip-button")) {
-        tone(220, 0.13, 0.025);
-        tone(330, 0.2, 0.02, 0.1);
+        // A small "opening" chime: sound can start here because Skip is a
+        // deliberate visitor gesture (browsers block automatic audio).
+        tone(392, 0.11, 0.018);
+        tone(523, 0.13, 0.016, 0.09);
+        tone(659, 0.18, 0.014, 0.18);
       } else {
-        tone(target.tagName === "A" ? 420 : 300, 0.075, 0.018);
+        // A concise UI click—not a musical beep—for normal controls.
+        tone(target.tagName === "A" ? 780 : 620, 0.045, 0.009, 0, "square");
       }
     };
     document.addEventListener("pointerdown", onInteractivePress, true);

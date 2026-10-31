@@ -23,14 +23,17 @@ body {
 .contact-card h2 {
   font-optical-sizing: auto;
   font-variation-settings: "SOFT" 40;
+  letter-spacing: -0.028em;
+  word-spacing: 0.08em;
 }
+.hero h1 { line-height: 0.98; }
 
 /* ---------- Scroll reveal (replaces the on-load-only .reveal) ---------- */
 .reveal {
   animation: none;
 }
 
-html.motion-ready .reveal {
+html.motion-ready .reveal.will-reveal {
   opacity: 0;
   transform: translateY(28px);
   transition:
@@ -40,7 +43,7 @@ html.motion-ready .reveal {
   will-change: opacity, transform;
 }
 
-html.motion-ready .reveal.is-visible {
+html.motion-ready .reveal.will-reveal.is-visible {
   opacity: 1;
   transform: none;
   will-change: auto;
@@ -61,7 +64,8 @@ html.motion-ready .reveal.is-visible {
 .hero-copy > :nth-child(4) { animation-delay: 420ms; }
 
 .hero-emphasis {
-  display: inline-block;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
   background: linear-gradient(100deg, var(--clay) 0%, var(--clay-deep) 45%, var(--clay) 90%);
   background-size: 200% 100%;
   -webkit-background-clip: text;
@@ -116,7 +120,7 @@ html.motion-ready .reveal.is-visible {
   top: 0;
   z-index: 40;
   transition: min-height 300ms var(--ease-out), box-shadow 300ms ease;
-  background: color-mix(in srgb, var(--paper) 82%, transparent);
+  background: color-mix(in srgb, var(--paper) 94%, transparent);
   -webkit-backdrop-filter: blur(14px) saturate(140%);
   backdrop-filter: blur(14px) saturate(140%);
 }
@@ -169,7 +173,7 @@ html.is-scrolled .site-header {
   transform: translateY(-6px);
   box-shadow: 0 30px 60px -28px rgba(33, 29, 25, 0.35);
 }
-html.motion-ready .project-card.reveal.is-visible:hover { transform: translateY(-6px); }
+.project-card.reveal.is-visible:hover { transform: translateY(-6px); }
 
 .project-visual { overflow: hidden; }
 .project-monogram { transition: transform 700ms var(--ease-out); }
@@ -191,8 +195,8 @@ html.motion-ready .project-card.reveal.is-visible:hover { transform: translateY(
   border-color: var(--clay);
   box-shadow: 0 24px 48px -26px rgba(33, 29, 25, 0.3);
 }
-html.motion-ready .skill-card.reveal.is-visible:hover,
-html.motion-ready .certificate-card.reveal.is-visible:hover { transform: translateY(-5px); }
+.skill-card.reveal.is-visible:hover,
+.certificate-card.reveal.is-visible:hover { transform: translateY(-5px); }
 
 /* ---------- Journal rows ---------- */
 .post-row { transition: padding 300ms var(--ease-out), background 300ms ease; }

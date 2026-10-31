@@ -17,7 +17,17 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" />
+        <script dangerouslySetInnerHTML={{ __html: `
+          try {
+            if (sessionStorage.getItem("abhay-intro-seen")) {
+              document.documentElement.classList.add("skip-portfolio-intro");
+            } else {
+              sessionStorage.setItem("abhay-intro-seen", "true");
+            }
+          } catch (_) {}
+        ` }} />
         <style>{`
+          html.skip-portfolio-intro .code-signal-intro { display: none !important; }
           .intro-skip { position: fixed; opacity: 0; pointer-events: none; }
           .code-signal-intro { overflow: hidden; background: #0d0c13; animation: intro-out .9s cubic-bezier(.76,0,.24,1) 11.1s forwards; }
           .intro-skip:checked + .code-signal-intro { animation: none; opacity: 0; visibility: hidden; pointer-events: none; }

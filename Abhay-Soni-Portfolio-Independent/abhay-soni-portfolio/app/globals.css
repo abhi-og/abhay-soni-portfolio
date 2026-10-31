@@ -848,7 +848,9 @@ a {
 }
 
 .footer-title {
-  margin: 0;
+  /* Separate the final call-to-action from the footer with the same calm
+     gutter used between the main page sections. */
+  margin: clamp(32px, 4vw, 64px) 0 0;
   font-family: var(--serif);
   font-size: 2rem;
 }
@@ -3030,7 +3032,7 @@ body::before {
   margin: 0;
   padding: 40px 46px 22px;
   border: 1px solid var(--line);
-  border-top: 0;
+  border-top: 1px solid var(--line);
   background: linear-gradient(135deg, #111018, #0c0c0c 72%);
   color: #fafaff;
 }
@@ -3080,4 +3082,90 @@ body::before {
   .hero-actions { align-items: stretch; }
   .hero-actions > * { flex: 1; }
   .project-content { padding: 27px 22px; }
+}
+
+/* ========================================================================
+   Private studio — intentionally independent from the public light/dark
+   switch. This keeps the editor calm, readable, and focused in every theme.
+   ======================================================================== */
+.studio,
+.portfolio-editor-page {
+  --studio-bg: #101015;
+  --studio-panel: #17171f;
+  --studio-panel-raised: #20202a;
+  --studio-input: #0c0c11;
+  --studio-text: #f6f5fb;
+  --studio-muted: #aaa8b6;
+  --studio-line: rgba(255,255,255,.12);
+  --studio-accent: #a78bfa;
+  background: var(--studio-bg);
+  color: var(--studio-text);
+}
+.studio-sidebar,
+.portfolio-editor-nav {
+  background: #15151d;
+  border-color: var(--studio-line);
+  color: var(--studio-text);
+}
+.studio-sidebar { padding: 30px 20px; }
+.studio-brand { padding: 0 8px 24px; border-color: var(--studio-line); }
+.studio-brand .brand-mark { background: var(--studio-accent); color: #12121a; }
+.studio-brand strong,
+.portfolio-editor-nav h1 { font-family: var(--sans); font-weight: 700; letter-spacing: -.04em; }
+.studio-brand small,
+.studio-posts > p { color: var(--studio-muted); }
+.studio-new,
+.studio-manage-link {
+  border-radius: 4px;
+  background: var(--studio-accent);
+  color: #14131a;
+}
+.studio-manage-link { border: 0; }
+.studio-stats span { border-color: var(--studio-line); color: var(--studio-muted); border-radius: 4px; }
+.studio-stats strong { color: var(--studio-text); font-family: var(--sans); }
+.studio-posts button { color: var(--studio-text); border-radius: 4px; }
+.studio-posts button:hover,
+.studio-posts button.active { background: var(--studio-panel-raised); box-shadow: inset 3px 0 var(--studio-accent); }
+.studio-posts button > span { font-family: var(--sans); }
+.studio-sidebar-footer { border-color: var(--studio-line); }
+.studio-sidebar-footer a { color: var(--studio-muted); }
+.studio-workspace { background: var(--studio-bg); }
+.studio-topbar,
+.portfolio-editor-header { border-color: var(--studio-line); color: var(--studio-muted); background: rgba(255,255,255,.015); }
+.studio-topbar p { color: var(--studio-muted); font-family: var(--sans); }
+.editor-form,
+.portfolio-item-form { width: min(100%, 1080px); }
+.editor-heading h1,
+.portfolio-item-form .editor-heading h2 { color: var(--studio-text); font-family: var(--sans); font-weight: 700; letter-spacing: -.065em; }
+.editor-actions .button { background: var(--studio-accent); color: #14131a; }
+.delete-button { border-color: rgba(255,157,136,.55); border-radius: 4px; color: #ffb4a4; }
+.editor-message { border-radius: 4px; }
+.editor-message.success { background: rgba(98, 201, 137, .15); color: #a8ebbe; }
+.editor-message.error { background: rgba(255, 112, 92, .15); color: #ffb2a5; }
+.field > span { color: #d3d0df; font-family: var(--mono); }
+.field > small { color: var(--studio-muted); font-family: var(--sans); }
+.field input,
+.field textarea,
+.field select {
+  border-color: var(--studio-line);
+  border-radius: 4px;
+  background: var(--studio-input);
+  color: var(--studio-text);
+}
+.field input::placeholder,
+.field textarea::placeholder { color: #747281; }
+.field input:focus,
+.field textarea:focus,
+.field select:focus { border-color: var(--studio-accent); box-shadow: 0 0 0 3px rgba(167,139,250,.18); }
+.feature-toggle { border-color: var(--studio-line); border-radius: 4px; background: var(--studio-panel); color: var(--studio-text); }
+.feature-toggle small { color: var(--studio-muted); }
+.portfolio-editor-header > div { color: var(--studio-muted); }
+.portfolio-editor-nav nav button,
+.portfolio-item-list button { border-radius: 4px; color: var(--studio-muted); }
+.portfolio-editor-nav nav button.active,
+.portfolio-editor-nav nav button:hover { background: var(--studio-panel-raised); color: var(--studio-text); }
+.portfolio-item-list button { border-color: var(--studio-line); background: var(--studio-panel); }
+.portfolio-item-list button.active { border-color: var(--studio-accent); box-shadow: inset 3px 0 var(--studio-accent); color: var(--studio-text); }
+@media (max-width: 900px) {
+  .studio-sidebar { position: static; height: auto; }
 }

@@ -78,11 +78,18 @@ const homepageCertificates = certificates
         </section>
 
         <div className="marquee" aria-hidden="true">
-          <span>Code. Create. Contribute.</span>
-          <span className="marquee-mark">✦</span>
-          <span>Designing with purpose.</span>
-          <span className="marquee-mark">✦</span>
-          <span>Learning out loud.</span>
+          <div className="marquee-track">
+            {[0, 1].map((n) => (
+              <div className="marquee-group" key={n}>
+                <span>Code. Create. Contribute.</span>
+                <span className="marquee-mark">✦</span>
+                <span>Designing with purpose.</span>
+                <span className="marquee-mark">✦</span>
+                <span>Learning out loud.</span>
+                <span className="marquee-mark">✦</span>
+              </div>
+            ))}
+          </div>
         </div>
 
         <section className="section" id="work">

@@ -1,0 +1,222 @@
+/* ==========================================================================
+   Motion + type layer. Loaded AFTER globals.css, purely additive:
+   delete this file and the import in layout.tsx to go back to the old look.
+   ========================================================================== */
+
+:root {
+  --serif: "Fraunces", Georgia, "Times New Roman", serif;
+  --sans: "Inter", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+body {
+  font-feature-settings: "ss01", "cv11";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.hero h1,
+.journal-hero h1,
+.article-header h1,
+.section-heading h2,
+.education-heading h2,
+.contact-card h2 {
+  font-optical-sizing: auto;
+  font-variation-settings: "SOFT" 40;
+}
+
+/* ---------- Scroll reveal (replaces the on-load-only .reveal) ---------- */
+.reveal {
+  animation: none;
+}
+
+html.motion-ready .reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 700ms var(--ease-out),
+    transform 700ms var(--ease-out);
+  transition-delay: calc(var(--i, 0) * 90ms);
+  will-change: opacity, transform;
+}
+
+html.motion-ready .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+  will-change: auto;
+}
+
+/* ---------- Hero entrance (pure CSS, works before JS loads) ---------- */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(26px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.hero-copy > * {
+  animation: rise 800ms var(--ease-out) both;
+}
+.hero-copy > :nth-child(1) { animation-delay: 60ms; }
+.hero-copy > :nth-child(2) { animation-delay: 160ms; }
+.hero-copy > :nth-child(3) { animation-delay: 300ms; }
+.hero-copy > :nth-child(4) { animation-delay: 420ms; }
+
+.hero-emphasis {
+  display: inline-block;
+  background: linear-gradient(100deg, var(--clay) 0%, var(--clay-deep) 45%, var(--clay) 90%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: sheen 7s ease-in-out infinite alternate;
+}
+@keyframes sheen {
+  from { background-position: 0% 50%; }
+  to   { background-position: 100% 50%; }
+}
+
+/* Hero note: lands, then gently floats */
+@keyframes note-in {
+  from { opacity: 0; transform: translateY(40px) rotate(8deg); }
+  to   { opacity: 1; transform: rotate(2.5deg); }
+}
+@keyframes note-float {
+  0%, 100% { transform: translateY(0) rotate(2.5deg); }
+  50%      { transform: translateY(-9px) rotate(1.6deg); }
+}
+.hero-note {
+  animation:
+    note-in 900ms var(--ease-out) 450ms both,
+    note-float 6.5s ease-in-out 1.4s infinite;
+}
+.status-dot { animation: pulse 2.4s ease-out infinite; }
+@keyframes pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(108, 143, 93, 0.45); }
+  100% { box-shadow: 0 0 0 11px rgba(108, 143, 93, 0); }
+}
+
+/* Cursor glow behind the hero */
+.hero { position: relative; isolation: isolate; }
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(
+    420px circle at var(--pointer-x, 72%) var(--pointer-y, 30%),
+    color-mix(in srgb, var(--clay) 13%, transparent),
+    transparent 70%
+  );
+  transition: background-position 200ms linear;
+}
+
+/* ---------- Sticky header that condenses on scroll ---------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  transition: min-height 300ms var(--ease-out), box-shadow 300ms ease;
+  background: color-mix(in srgb, var(--paper) 82%, transparent);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  backdrop-filter: blur(14px) saturate(140%);
+}
+html.is-scrolled .site-header {
+  min-height: 68px;
+  box-shadow: 0 10px 30px -18px rgba(33, 29, 25, 0.35);
+}
+.brand-mark { transition: transform 400ms var(--ease-out); }
+.brand:hover .brand-mark { transform: rotate(-12deg) scale(1.08); }
+
+/* ---------- Buttons & links ---------- */
+.button span[aria-hidden="true"],
+.text-link span[aria-hidden="true"],
+.header-cta span[aria-hidden="true"] {
+  display: inline-block;
+  transition: transform 260ms var(--ease-out);
+}
+.button:hover span[aria-hidden="true"],
+.text-link:hover span[aria-hidden="true"],
+.header-cta:hover span[aria-hidden="true"] {
+  transform: translate(3px, -2px);
+}
+.text-link { transition: color 200ms ease, gap 260ms var(--ease-out); }
+.text-link:hover { color: var(--clay); gap: 12px; }
+.button:active { transform: translateY(0) scale(0.97); }
+
+/* ---------- Marquee that actually scrolls ---------- */
+.marquee { display: block; padding: 0; }
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 32s linear infinite;
+}
+.marquee:hover .marquee-track { animation-play-state: paused; }
+.marquee-group {
+  display: flex;
+  align-items: center;
+  gap: clamp(22px, 4vw, 62px);
+  padding: 21px clamp(11px, 2vw, 31px);
+}
+@keyframes marquee {
+  to { transform: translateX(-50%); }
+}
+
+/* ---------- Project cards ---------- */
+.project-card {
+  transition: transform 450ms var(--ease-out), box-shadow 450ms var(--ease-out);
+}
+.project-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 30px 60px -28px rgba(33, 29, 25, 0.35);
+}
+html.motion-ready .project-card.reveal.is-visible:hover { transform: translateY(-6px); }
+
+.project-visual { overflow: hidden; }
+.project-monogram { transition: transform 700ms var(--ease-out); }
+.project-card:hover .project-monogram { transform: scale(1.08) rotate(-3deg); }
+.project-orbit { animation: spin 38s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.tag-list li { transition: background 200ms ease, color 200ms ease, transform 200ms ease; }
+.project-card:hover .tag-list li { transform: translateY(-2px); }
+
+/* ---------- Skill / certificate cards ---------- */
+.skill-card,
+.certificate-card {
+  transition: transform 400ms var(--ease-out), box-shadow 400ms var(--ease-out), border-color 300ms ease;
+}
+.skill-card:hover,
+.certificate-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--clay);
+  box-shadow: 0 24px 48px -26px rgba(33, 29, 25, 0.3);
+}
+html.motion-ready .skill-card.reveal.is-visible:hover,
+html.motion-ready .certificate-card.reveal.is-visible:hover { transform: translateY(-5px); }
+
+/* ---------- Journal rows ---------- */
+.post-row { transition: padding 300ms var(--ease-out), background 300ms ease; }
+.post-row:hover { padding-left: 18px; }
+.read-time { transition: transform 300ms var(--ease-out), color 200ms ease; }
+.post-row:hover .read-time { transform: translateX(4px); color: var(--clay); }
+
+/* ---------- Timeline dot ---------- */
+.timeline-dot { transition: transform 300ms var(--ease-out); }
+.education-item:hover .timeline-dot { transform: scale(1.5); }
+
+/* ---------- Accessibility: kill all of it for reduced-motion users ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+  }
+  .hero-note { transform: rotate(2.5deg); }
+  .marquee { overflow-x: auto; }
+}
+
+@media (max-width: 900px) {
+  /* keep the sticky header from eating a small screen */
+  .site-header { position: relative; backdrop-filter: none; -webkit-backdrop-filter: none; }
+  html.is-scrolled .site-header { box-shadow: none; }
+  .hero-note { animation: note-in 900ms var(--ease-out) 300ms both; }
+}

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { SoundToggle } from "./SoundToggle";
 import { ThemeToggle } from "./ThemeToggle";
 import { SectionLink } from "./SectionLink";
 
@@ -19,6 +20,7 @@ export function SiteHeader() {
       </nav>
       <div className="header-actions">
         <ThemeToggle />
+        <SoundToggle />
         <Link className="header-cta" href="/resume">
           Resume <span aria-hidden="true">↗</span>
         </Link>

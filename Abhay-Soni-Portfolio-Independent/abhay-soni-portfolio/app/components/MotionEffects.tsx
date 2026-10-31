@@ -7,6 +7,7 @@ import { useEffect } from "react";
  *  1. Reveals `.reveal` elements when they scroll into view (staggered per row)
  *  2. Toggles `.is-scrolled` on <html> so the sticky header can condense
  *  3. Sets --pointer-x/--pointer-y on the hero for a soft cursor glow
+ *  4. Gives primary controls a small, pointer-aware magnetic response
  * Everything is skipped when the visitor prefers reduced motion.
  */
 export function MotionEffects() {
@@ -83,12 +84,36 @@ export function MotionEffects() {
     };
     if (hero && fine) hero.addEventListener("pointermove", onMove);
 
+    // 4. Button motion: intentionally small so controls still feel precise.
+    const magnetic = Array.from(
+      document.querySelectorAll<HTMLElement>(".button, .header-cta"),
+    );
+    const resetMagnetic = (el: HTMLElement) => {
+      el.style.removeProperty("--magnet-x");
+      el.style.removeProperty("--magnet-y");
+    };
+    const onMagnetMove = (event: PointerEvent) => {
+      const el = event.currentTarget as HTMLElement;
+      const rect = el.getBoundingClientRect();
+      const x = ((event.clientX - rect.left) / rect.width - 0.5) * 5;
+      const y = ((event.clientY - rect.top) / rect.height - 0.5) * 5;
+      el.style.setProperty("--magnet-x", `${x}px`);
+      el.style.setProperty("--magnet-y", `${y}px`);
+    };
+    if (fine) {
+      magnetic.forEach((el) => {
+        el.addEventListener("pointermove", onMagnetMove);
+        el.addEventListener("pointerleave", () => resetMagnetic(el));
+      });
+    }
+
     return () => {
       io.disconnect();
       mo.disconnect();
       window.clearTimeout(rescue);
       window.removeEventListener("scroll", onScroll);
       if (hero && fine) hero.removeEventListener("pointermove", onMove);
+      if (fine) magnetic.forEach((el) => resetMagnetic(el));
       cancelAnimationFrame(raf);
       root.classList.remove("motion-ready", "is-scrolled");
     };

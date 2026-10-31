@@ -4,8 +4,8 @@
    ========================================================================== */
 
 :root {
-  --serif: "Fraunces", Georgia, "Times New Roman", serif;
-  --sans: "Inter", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  --serif: "Space Grotesk", system-ui, sans-serif;
+  --sans: "Space Grotesk", system-ui, sans-serif;
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -146,6 +146,15 @@ html.is-scrolled .site-header {
 .text-link { transition: color 200ms ease, gap 260ms var(--ease-out); }
 .text-link:hover { color: var(--clay); gap: 12px; }
 .button:active { transform: translateY(0) scale(0.97); }
+
+/* Small pointer response for calls to action, without affecting keyboard users. */
+.button,
+.header-cta {
+  transform: translate(var(--magnet-x, 0), var(--magnet-y, 0));
+  transition: transform 220ms var(--ease-out), box-shadow 220ms var(--ease-out), background 220ms ease;
+}
+.button:hover,
+.header-cta:hover { transform: translate(var(--magnet-x, 0), calc(var(--magnet-y, 0) - 2px)); }
 
 /* ---------- Marquee that actually scrolls ---------- */
 .marquee { display: block; padding: 0; }

@@ -64,8 +64,12 @@ export function MotionEffects() {
         });
     }, 4000);
 
-    // 2. Header state
-    const onScroll = () => root.classList.toggle("is-scrolled", window.scrollY > 24);
+    // 2. Header state + a very small reading-progress signal.
+    const onScroll = () => {
+      root.classList.toggle("is-scrolled", window.scrollY > 24);
+      const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+      root.style.setProperty("--scroll-progress", String(Math.min(1, window.scrollY / maxScroll)));
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
 
@@ -107,6 +111,31 @@ export function MotionEffects() {
       });
     }
 
+    // 5. Cards gain depth while remaining completely still for keyboard and touch users.
+    const tiltCards = Array.from(
+      document.querySelectorAll<HTMLElement>(".project-card, .skill-card, .certificate-card"),
+    );
+    const resetTilt = (el: HTMLElement) => {
+      el.style.removeProperty("--tilt-x");
+      el.style.removeProperty("--tilt-y");
+      el.classList.remove("is-tilting");
+    };
+    const onTiltMove = (event: PointerEvent) => {
+      const el = event.currentTarget as HTMLElement;
+      const rect = el.getBoundingClientRect();
+      const x = (event.clientX - rect.left) / rect.width - 0.5;
+      const y = (event.clientY - rect.top) / rect.height - 0.5;
+      el.style.setProperty("--tilt-x", `${x * 3.2}deg`);
+      el.style.setProperty("--tilt-y", `${y * -3.2}deg`);
+      el.classList.add("is-tilting");
+    };
+    if (fine) {
+      tiltCards.forEach((el) => {
+        el.addEventListener("pointermove", onTiltMove);
+        el.addEventListener("pointerleave", () => resetTilt(el));
+      });
+    }
+
     return () => {
       io.disconnect();
       mo.disconnect();
@@ -114,6 +143,8 @@ export function MotionEffects() {
       window.removeEventListener("scroll", onScroll);
       if (hero && fine) hero.removeEventListener("pointermove", onMove);
       if (fine) magnetic.forEach((el) => resetMagnetic(el));
+      if (fine) tiltCards.forEach((el) => resetTilt(el));
+      root.style.removeProperty("--scroll-progress");
       cancelAnimationFrame(raf);
       root.classList.remove("motion-ready", "is-scrolled");
     };

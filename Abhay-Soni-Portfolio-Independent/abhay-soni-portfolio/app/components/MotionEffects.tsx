@@ -2,14 +2,6 @@
 
 import { useEffect } from "react";
 
-/**
- * Site-wide motion behaviour (no visual output of its own):
- *  1. Reveals `.reveal` elements when they scroll into view (staggered per row)
- *  2. Toggles `.is-scrolled` on <html> so the sticky header can condense
- *  3. Sets --pointer-x/--pointer-y on the hero for a soft cursor glow
- *  4. Gives primary controls a small, pointer-aware magnetic response
- * Everything is skipped when the visitor prefers reduced motion.
- */
 export function MotionEffects() {
   useEffect(() => {
     const root = document.documentElement;
@@ -18,9 +10,6 @@ export function MotionEffects() {
 
     root.classList.add("motion-ready");
 
-    // 1. Scroll reveal. An element is only hidden once it is being watched
-    //    (.will-reveal), so content that arrives late (streamed from the
-    //    database) can never get stuck invisible.
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -42,9 +31,9 @@ export function MotionEffects() {
           ? Array.from(el.parentElement.children).filter((c) => c.classList.contains("reveal"))
           : [];
         el.style.setProperty("--i", String(Math.max(0, row.indexOf(el)) % 6));
-        const r = el.getBoundingClientRect();
-        if (r.top < window.innerHeight && r.bottom > 0) {
-          el.classList.add("is-visible"); // already on screen: leave it alone
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          el.classList.add("is-visible");
         } else {
           el.classList.add("will-reveal");
           io.observe(el);
@@ -54,44 +43,58 @@ export function MotionEffects() {
     register();
     const mo = new MutationObserver(register);
     mo.observe(document.body, { childList: true, subtree: true });
-    // Safety net: never leave anything hidden for more than a few seconds
     const rescue = window.setTimeout(() => {
-      document
-        .querySelectorAll(".reveal.will-reveal:not(.is-visible)")
-        .forEach((el) => {
-          const r = el.getBoundingClientRect();
-          if (r.top < window.innerHeight) el.classList.add("is-visible");
-        });
+      document.querySelectorAll(".reveal.will-reveal:not(.is-visible)").forEach((el) => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight) el.classList.add("is-visible");
+      });
     }, 4000);
 
-    // 2. Header state + a very small reading-progress signal.
+    const hero = document.querySelector<HTMLElement>(".hero");
+    const fine = window.matchMedia("(pointer: fine)").matches;
+    let pointerRaf = 0;
+    let scrollRaf = 0;
+
+    // The reference has scroll-linked depth. This creates the same sense of
+    // momentum with a light, original effect and does not replace native scrolling.
+    const depthTargets = Array.from(
+      document.querySelectorAll<HTMLElement>(
+        ".project-card, .skill-card, .certificate-card, .section-heading, .about-statement",
+      ),
+    );
+    const updateScrollMotion = () => {
+      const viewportCenter = window.innerHeight / 2;
+      depthTargets.forEach((el) => {
+        const rect = el.getBoundingClientRect();
+        const distance = (rect.top + rect.height / 2 - viewportCenter) / window.innerHeight;
+        const shift = Math.max(-14, Math.min(14, distance * -18));
+        // The individual translate property composes safely with existing hover transforms.
+        el.style.translate = `0 ${shift.toFixed(2)}px`;
+      });
+    };
     const onScroll = () => {
       root.classList.toggle("is-scrolled", window.scrollY > 24);
       const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
       root.style.setProperty("--scroll-progress", String(Math.min(1, window.scrollY / maxScroll)));
+      cancelAnimationFrame(scrollRaf);
+      scrollRaf = requestAnimationFrame(updateScrollMotion);
     };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
 
-    // 3. Hero cursor glow (fine pointers only)
-    const hero = document.querySelector<HTMLElement>(".hero");
-    const fine = window.matchMedia("(pointer: fine)").matches;
-    let raf = 0;
-    const onMove = (e: PointerEvent) => {
+    const onMove = (event: PointerEvent) => {
       if (!hero) return;
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => {
-        const r = hero.getBoundingClientRect();
-        hero.style.setProperty("--pointer-x", `${e.clientX - r.left}px`);
-        hero.style.setProperty("--pointer-y", `${e.clientY - r.top}px`);
+      cancelAnimationFrame(pointerRaf);
+      pointerRaf = requestAnimationFrame(() => {
+        const rect = hero.getBoundingClientRect();
+        hero.style.setProperty("--pointer-x", `${event.clientX - rect.left}px`);
+        hero.style.setProperty("--pointer-y", `${event.clientY - rect.top}px`);
       });
     };
     if (hero && fine) hero.addEventListener("pointermove", onMove);
 
-    // 4. Button motion: intentionally small so controls still feel precise.
-    const magnetic = Array.from(
-      document.querySelectorAll<HTMLElement>(".button, .header-cta"),
-    );
+    const magnetic = Array.from(document.querySelectorAll<HTMLElement>(".button, .header-cta"));
     const resetMagnetic = (el: HTMLElement) => {
       el.style.removeProperty("--magnet-x");
       el.style.removeProperty("--magnet-y");
@@ -99,22 +102,15 @@ export function MotionEffects() {
     const onMagnetMove = (event: PointerEvent) => {
       const el = event.currentTarget as HTMLElement;
       const rect = el.getBoundingClientRect();
-      const x = ((event.clientX - rect.left) / rect.width - 0.5) * 5;
-      const y = ((event.clientY - rect.top) / rect.height - 0.5) * 5;
-      el.style.setProperty("--magnet-x", `${x}px`);
-      el.style.setProperty("--magnet-y", `${y}px`);
+      el.style.setProperty("--magnet-x", `${((event.clientX - rect.left) / rect.width - 0.5) * 5}px`);
+      el.style.setProperty("--magnet-y", `${((event.clientY - rect.top) / rect.height - 0.5) * 5}px`);
     };
-    if (fine) {
-      magnetic.forEach((el) => {
-        el.addEventListener("pointermove", onMagnetMove);
-        el.addEventListener("pointerleave", () => resetMagnetic(el));
-      });
-    }
+    if (fine) magnetic.forEach((el) => {
+      el.addEventListener("pointermove", onMagnetMove);
+      el.addEventListener("pointerleave", () => resetMagnetic(el));
+    });
 
-    // 5. Cards gain depth while remaining completely still for keyboard and touch users.
-    const tiltCards = Array.from(
-      document.querySelectorAll<HTMLElement>(".project-card, .skill-card, .certificate-card"),
-    );
+    const tiltCards = Array.from(document.querySelectorAll<HTMLElement>(".project-card, .skill-card, .certificate-card"));
     const resetTilt = (el: HTMLElement) => {
       el.style.removeProperty("--tilt-x");
       el.style.removeProperty("--tilt-y");
@@ -123,32 +119,27 @@ export function MotionEffects() {
     const onTiltMove = (event: PointerEvent) => {
       const el = event.currentTarget as HTMLElement;
       const rect = el.getBoundingClientRect();
-      const x = (event.clientX - rect.left) / rect.width - 0.5;
-      const y = (event.clientY - rect.top) / rect.height - 0.5;
-      el.style.setProperty("--tilt-x", `${x * 3.2}deg`);
-      el.style.setProperty("--tilt-y", `${y * -3.2}deg`);
+      el.style.setProperty("--tilt-x", `${(((event.clientX - rect.left) / rect.width) - 0.5) * 3.2}deg`);
+      el.style.setProperty("--tilt-y", `${(((event.clientY - rect.top) / rect.height) - 0.5) * -3.2}deg`);
       el.classList.add("is-tilting");
     };
-    if (fine) {
-      tiltCards.forEach((el) => {
-        el.addEventListener("pointermove", onTiltMove);
-        el.addEventListener("pointerleave", () => resetTilt(el));
-      });
-    }
+    if (fine) tiltCards.forEach((el) => {
+      el.addEventListener("pointermove", onTiltMove);
+      el.addEventListener("pointerleave", () => resetTilt(el));
+    });
 
     return () => {
-      io.disconnect();
-      mo.disconnect();
-      window.clearTimeout(rescue);
+      io.disconnect(); mo.disconnect(); window.clearTimeout(rescue);
       window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
       if (hero && fine) hero.removeEventListener("pointermove", onMove);
-      if (fine) magnetic.forEach((el) => resetMagnetic(el));
-      if (fine) tiltCards.forEach((el) => resetTilt(el));
+      if (fine) magnetic.forEach(resetMagnetic);
+      if (fine) tiltCards.forEach(resetTilt);
+      depthTargets.forEach((el) => { el.style.translate = ""; });
       root.style.removeProperty("--scroll-progress");
-      cancelAnimationFrame(raf);
+      cancelAnimationFrame(pointerRaf); cancelAnimationFrame(scrollRaf);
       root.classList.remove("motion-ready", "is-scrolled");
     };
   }, []);
-
   return null;
 }

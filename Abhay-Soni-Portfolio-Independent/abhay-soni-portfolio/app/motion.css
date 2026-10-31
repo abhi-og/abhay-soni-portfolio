@@ -124,6 +124,20 @@ html.motion-ready .reveal.will-reveal.is-visible {
   -webkit-backdrop-filter: blur(14px) saturate(140%);
   backdrop-filter: blur(14px) saturate(140%);
 }
+.site-header::after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  right: 0;
+  bottom: -1px;
+  left: 0;
+  height: 2px;
+  pointer-events: none;
+  transform: scaleX(var(--scroll-progress, 0));
+  transform-origin: left;
+  background: linear-gradient(90deg, var(--clay), var(--clay-deep));
+  transition: transform 80ms linear;
+}
 html.is-scrolled .site-header {
   min-height: 68px;
   box-shadow: 0 10px 30px -18px rgba(33, 29, 25, 0.35);
@@ -179,10 +193,10 @@ html.is-scrolled .site-header {
   transition: transform 450ms var(--ease-out), box-shadow 450ms var(--ease-out);
 }
 .project-card:hover {
-  transform: translateY(-6px);
+  transform: translateY(-6px) rotateX(var(--tilt-y, 0)) rotateY(var(--tilt-x, 0));
   box-shadow: 0 30px 60px -28px rgba(33, 29, 25, 0.35);
 }
-.project-card.reveal.is-visible:hover { transform: translateY(-6px); }
+.project-card.reveal.is-visible:hover { transform: translateY(-6px) rotateX(var(--tilt-y, 0)) rotateY(var(--tilt-x, 0)); }
 
 .project-visual { overflow: hidden; }
 .project-monogram { transition: transform 700ms var(--ease-out); }
@@ -200,12 +214,22 @@ html.is-scrolled .site-header {
 }
 .skill-card:hover,
 .certificate-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-5px) rotateX(var(--tilt-y, 0)) rotateY(var(--tilt-x, 0));
   border-color: var(--clay);
   box-shadow: 0 24px 48px -26px rgba(33, 29, 25, 0.3);
 }
 .skill-card.reveal.is-visible:hover,
-.certificate-card.reveal.is-visible:hover { transform: translateY(-5px); }
+.certificate-card.reveal.is-visible:hover { transform: translateY(-5px) rotateX(var(--tilt-y, 0)) rotateY(var(--tilt-x, 0)); }
+
+/* Cards react to the pointer only on devices where a pointer is precise. */
+@media (pointer: fine) {
+  .project-card,
+  .skill-card,
+  .certificate-card { transform-style: preserve-3d; perspective: 900px; }
+  .project-card.is-tilting,
+  .skill-card.is-tilting,
+  .certificate-card.is-tilting { transition-duration: 80ms; }
+}
 
 /* ---------- Journal rows ---------- */
 .post-row { transition: padding 300ms var(--ease-out), background 300ms ease; }

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import "./motion.css";
 import { MotionEffects } from "./components/MotionEffects";
+import { BootIntro } from "./components/BootIntro";
 
 export const metadata: Metadata = {
   title: {
@@ -35,6 +36,7 @@ export default function RootLayout({
         />
       </head>
       <body>
+        <BootIntro />
         <MotionEffects />
         {children}
       </body>

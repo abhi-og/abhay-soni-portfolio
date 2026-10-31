@@ -17,27 +17,51 @@ export function MotionEffects() {
 
     root.classList.add("motion-ready");
 
-    // 1. Scroll reveal
-    const targets = Array.from(document.querySelectorAll<HTMLElement>(".reveal"));
-    targets.forEach((el) => {
-      const siblings = el.parentElement
-        ? Array.from(el.parentElement.children).filter((c) => c.classList.contains("reveal"))
-        : [];
-      el.style.setProperty("--i", String(Math.max(0, siblings.indexOf(el)) % 6));
-    });
-
-    const observer = new IntersectionObserver(
+    // 1. Scroll reveal. An element is only hidden once it is being watched
+    //    (.will-reveal), so content that arrives late (streamed from the
+    //    database) can never get stuck invisible.
+    const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add("is-visible");
-            observer.unobserve(entry.target);
+            io.unobserve(entry.target);
           }
         });
       },
-      { threshold: 0.12, rootMargin: "0px 0px -6% 0px" },
+      { threshold: 0.08, rootMargin: "0px 0px -4% 0px" },
     );
-    targets.forEach((el) => observer.observe(el));
+
+    const seen = new WeakSet<Element>();
+    const register = () => {
+      document.querySelectorAll<HTMLElement>(".reveal").forEach((el) => {
+        if (seen.has(el)) return;
+        seen.add(el);
+        const row = el.parentElement
+          ? Array.from(el.parentElement.children).filter((c) => c.classList.contains("reveal"))
+          : [];
+        el.style.setProperty("--i", String(Math.max(0, row.indexOf(el)) % 6));
+        const r = el.getBoundingClientRect();
+        if (r.top < window.innerHeight && r.bottom > 0) {
+          el.classList.add("is-visible"); // already on screen: leave it alone
+        } else {
+          el.classList.add("will-reveal");
+          io.observe(el);
+        }
+      });
+    };
+    register();
+    const mo = new MutationObserver(register);
+    mo.observe(document.body, { childList: true, subtree: true });
+    // Safety net: never leave anything hidden for more than a few seconds
+    const rescue = window.setTimeout(() => {
+      document
+        .querySelectorAll(".reveal.will-reveal:not(.is-visible)")
+        .forEach((el) => {
+          const r = el.getBoundingClientRect();
+          if (r.top < window.innerHeight) el.classList.add("is-visible");
+        });
+    }, 4000);
 
     // 2. Header state
     const onScroll = () => root.classList.toggle("is-scrolled", window.scrollY > 24);
@@ -60,7 +84,9 @@ export function MotionEffects() {
     if (hero && fine) hero.addEventListener("pointermove", onMove);
 
     return () => {
-      observer.disconnect();
+      io.disconnect();
+      mo.disconnect();
+      window.clearTimeout(rescue);
       window.removeEventListener("scroll", onScroll);
       if (hero && fine) hero.removeEventListener("pointermove", onMove);
       cancelAnimationFrame(raf);

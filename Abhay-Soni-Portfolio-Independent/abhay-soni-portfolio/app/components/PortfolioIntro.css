@@ -1,0 +1,454 @@
+/* ==========================================================================
+   PortfolioIntro.css — High-End Cinematic Developer Intro
+   ========================================================================== */
+
+.intro-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #08080c;
+  color: #f6f5fb;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(20px, 4vw, 44px);
+  overflow: hidden;
+  font-family: var(--mono, "DM Mono", monospace);
+  transition: transform 0.8s cubic-bezier(0.76, 0, 0.24, 1), opacity 0.8s ease, filter 0.8s ease;
+  will-change: transform, opacity, filter;
+  user-select: none;
+}
+
+.intro-overlay::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle at 50% 40%, rgba(167, 139, 250, 0.16), transparent 36rem),
+    radial-gradient(circle at 85% 15%, rgba(56, 189, 248, 0.08), transparent 26rem),
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: auto, auto, 40px 40px, 40px 40px;
+}
+
+/* Seamless exit directly into the website */
+.intro-overlay.is-exiting {
+  transform: translateY(-100%);
+  opacity: 0;
+  filter: blur(10px);
+  pointer-events: none;
+}
+
+.intro-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Header */
+.intro-topbar {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: clamp(0.68rem, 1vw, 0.78rem);
+  letter-spacing: 0.14em;
+  color: #9c98af;
+  text-transform: uppercase;
+}
+
+.top-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.live-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #38bdf8;
+  box-shadow: 0 0 12px #38bdf8;
+  animation: dot-pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes dot-pulse {
+  0%, 100% { opacity: 0.5; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1.15); }
+}
+
+.brand-title {
+  font-weight: 600;
+  color: #f6f5fb;
+}
+
+.top-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sound-pill-btn,
+.skip-pill-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #f6f5fb;
+  font-family: inherit;
+  font-size: clamp(0.65rem, 1vw, 0.74rem);
+  padding: 8px 16px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(8px);
+}
+
+.sound-pill-btn:hover,
+.skip-pill-btn:hover {
+  background: #f6f5fb;
+  color: #08080c;
+  border-color: #f6f5fb;
+}
+
+/* Center Stage */
+.intro-stage {
+  position: relative;
+  z-index: 10;
+  align-self: center;
+  text-align: center;
+  margin: auto;
+  width: 100%;
+  max-width: 860px;
+}
+
+.act-content {
+  animation: act-fade-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes act-fade-in {
+  from { opacity: 0; transform: translateY(24px) scale(0.96); }
+  to { opacity: 1; transform: none; }
+}
+
+/* ==========================================================================
+   ACT 1: CODE EDITOR WINDOW (from Screenshot)
+   ========================================================================== */
+.act-code-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.code-editor-window {
+  width: min(620px, 92vw);
+  background: #0d0c15;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  box-shadow:
+    0 24px 80px rgba(0, 0, 0, 0.75),
+    0 0 35px rgba(167, 139, 250, 0.12);
+  overflow: hidden;
+  text-align: left;
+}
+
+.editor-titlebar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 18px;
+  background: rgba(255, 255, 255, 0.03);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.window-dots {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.dot-red    { background: #ff5f56; }
+.dot-yellow { background: #ffbd2e; }
+.dot-green  { background: #27c93f; }
+
+.editor-filename {
+  color: #9c98af;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+}
+
+.editor-status {
+  color: #38bdf8;
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+}
+
+.editor-code-body {
+  display: flex;
+  padding: 22px 20px;
+  gap: 20px;
+  font-size: clamp(0.85rem, 1.4vw, 1.05rem);
+  line-height: 1.8;
+  background: #0d0c15;
+}
+
+.line-numbers {
+  display: flex;
+  flex-direction: column;
+  color: #585568;
+  user-select: none;
+  font-family: inherit;
+  text-align: right;
+  min-width: 18px;
+}
+
+.code-content {
+  flex: 1;
+  color: #f6f5fb;
+  font-family: inherit;
+  margin: 0;
+}
+
+.code-content p {
+  margin: 0;
+}
+
+.code-content .indent {
+  padding-left: 24px;
+}
+
+/* Syntax Highlighting */
+.syn-keyword { color: #f43f5e; font-weight: 500; }
+.syn-class   { color: #f6f5fb; font-weight: 600; }
+.syn-prop    { color: #a78bfa; }
+.syn-string  { color: #38bdf8; }
+.syn-method  { color: #34d399; }
+.syn-this    { color: #fbbf24; }
+
+.editor-subcaption {
+  margin-top: 18px;
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  color: #a78bfa;
+}
+
+/* ACT 2 & 3 */
+.act-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(167, 139, 250, 0.1);
+  border: 1px solid rgba(167, 139, 250, 0.3);
+  padding: 6px 14px;
+  margin-bottom: 22px;
+  border-radius: 999px;
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  color: #d8cbff;
+}
+
+.pill-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #a78bfa;
+  box-shadow: 0 0 8px #a78bfa;
+}
+
+.act-headline {
+  font-family: var(--sans, "Space Grotesk", sans-serif);
+  font-size: clamp(2.4rem, 6.5vw, 4.6rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+  color: #f6f5fb;
+  margin: 0 0 20px;
+}
+
+.gradient-highlight {
+  background: linear-gradient(135deg, #d8cbff 15%, #a78bfa 55%, #38bdf8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.arsenal-badges {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.badge {
+  background: rgba(13, 12, 19, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  padding: 8px 20px;
+  font-size: clamp(0.7rem, 1.1vw, 0.84rem);
+  letter-spacing: 0.14em;
+  color: #d8cbff;
+}
+
+.badge.highlight-cyan {
+  border-color: rgba(56, 189, 248, 0.4);
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.08);
+}
+
+.sep {
+  color: #726e82;
+  font-size: 0.75rem;
+}
+
+.name-reveal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  font-family: var(--sans, "Space Grotesk", sans-serif);
+  font-weight: 700;
+  font-size: clamp(4.6rem, 16vw, 11rem);
+  line-height: 0.88;
+  letter-spacing: -0.06em;
+  color: #f6f5fb;
+  margin-bottom: 24px;
+  text-shadow: 0 0 50px rgba(167, 139, 250, 0.55);
+}
+
+.name-char {
+  display: inline-block;
+  animation: char-rise 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.name-char.accent { color: #a78bfa; }
+.name-char.cyan   { color: #38bdf8; }
+
+@keyframes char-rise {
+  from { opacity: 0; transform: translateY(32px) scale(0.9); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.builder-tagline {
+  font-size: clamp(0.85rem, 1.3vw, 1.05rem);
+  letter-spacing: 0.12em;
+  color: #d8cbff;
+  text-transform: uppercase;
+}
+
+/* ==========================================================================
+   PROMINENT PROGRESS BAR DOCK (Bottom)
+   ========================================================================== */
+.intro-progress-dock {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 20px;
+}
+
+.progress-info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  font-size: clamp(0.68rem, 1vw, 0.8rem);
+  letter-spacing: 0.12em;
+  color: #b0acbe;
+}
+
+.progress-status-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.status-indicator-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #a78bfa;
+  box-shadow: 0 0 8px #a78bfa;
+}
+
+.progress-counter {
+  font-weight: 700;
+  font-size: clamp(0.9rem, 1.4vw, 1.25rem);
+  color: #f6f5fb;
+  letter-spacing: 0.06em;
+}
+
+.counter-val {
+  color: #a78bfa;
+}
+
+.counter-max {
+  color: #726e82;
+  font-size: 0.75rem;
+  margin-left: 4px;
+}
+
+.progress-track-wrapper {
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-fill-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #a78bfa, #38bdf8);
+  border-radius: 999px;
+  position: relative;
+  transition: width 0.1s linear;
+  box-shadow: 0 0 16px rgba(167, 139, 250, 0.6);
+}
+
+.progress-leading-glow {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 14px;
+  background: #ffffff;
+  border-radius: 999px;
+  box-shadow: 0 0 12px #ffffff;
+}
+
+.progress-footer-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+  font-size: 0.65rem;
+  letter-spacing: 0.14em;
+  color: #726e82;
+  text-transform: uppercase;
+}
+
+.esc-hint {
+  color: #9c98af;
+}
+
+@media (max-width: 600px) {
+  .name-reveal {
+    font-size: clamp(3.2rem, 14vw, 5rem);
+  }
+  .editor-code-body {
+    font-size: 0.76rem;
+    padding: 16px 12px;
+  }
+}

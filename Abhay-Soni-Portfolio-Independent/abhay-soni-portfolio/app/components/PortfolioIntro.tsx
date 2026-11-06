@@ -146,7 +146,7 @@ export function PortfolioIntro() {
       vx: (Math.random() - 0.5) * 0.7,
       vy: (Math.random() - 0.5) * 0.7,
       size: Math.random() * 2 + 1,
-      color: Math.random() > 0.4 ? "#a78bfa" : "#38bdf8",
+      color: Math.random() > 0.4 ? "#c6f432" : "#f7f7f2",
       alpha: Math.random() * 0.5 + 0.2,
     }));
 
@@ -169,8 +169,8 @@ export function PortfolioIntro() {
         m.y * h,
         w * 0.45
       );
-      grad.addColorStop(0, "rgba(167, 139, 250, 0.14)");
-      grad.addColorStop(0.5, "rgba(56, 189, 248, 0.04)");
+      grad.addColorStop(0, "rgba(198, 244, 50, 0.16)");
+      grad.addColorStop(0.5, "rgba(247, 247, 242, 0.035)");
       grad.addColorStop(1, "transparent");
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, w, h);

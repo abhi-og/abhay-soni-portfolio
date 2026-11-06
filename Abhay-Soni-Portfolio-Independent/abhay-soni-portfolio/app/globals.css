@@ -3206,3 +3206,76 @@ body::before {
 @media (max-width: 900px) {
   .studio-sidebar { position: static; height: auto; }
 }
+
+/* ========================================================================
+   Midnight lime public skin
+   Palette: #0B0B0C / #F7F7F2 / #C6F432
+   ======================================================================== */
+:root {
+  --paper: #0b0b0c;
+  --paper-deep: #131415;
+  --ink: #f7f7f2;
+  --muted: #aeb0a4;
+  --line: rgba(247, 247, 242, .14);
+  --clay: #c6f432;
+  --clay-deep: #a5cf24;
+  --sage: #c6f432;
+  --cream: #0b0b0c;
+}
+
+body {
+  background-image:
+    radial-gradient(circle at 50% 94%, rgba(198, 244, 50, .14), transparent 31rem),
+    radial-gradient(circle at center, rgba(255, 255, 255, .035) 1px, transparent 1px);
+}
+body::before { opacity: .13; }
+.brand-mark, .byline-mark, .header-cta, .button-dark, .skill-card > span, .certificate-seal,
+.category-filters button[aria-pressed="true"] { color: #0b0b0c; }
+.project-card:hover, .project-archive-card:hover { background: rgba(198, 244, 50, .035); }
+.project-visual::before, .project-archive-visual::before { border-color: rgba(198, 244, 50, .38); }
+.about-section { background: rgba(198, 244, 50, .025); }
+.post-row:hover { background: rgba(198, 244, 50, .04); }
+.education-section, .marquee { background: #09090a; }
+.timeline-dot { box-shadow: 0 0 0 6px #09090a; }
+.contact-card {
+  border-color: rgba(198, 244, 50, .5);
+  background:
+    radial-gradient(circle at 88% 15%, rgba(198, 244, 50, .2), transparent 26rem),
+    linear-gradient(135deg, #191b12, #0b0b0c 72%);
+}
+.contact-card .section-number, .contact-details span { color: #d8ff70; }
+.site-footer { background: linear-gradient(135deg, #11130e, #09090a 72%); }
+
+[data-theme="light"] {
+  --paper: #f7f7f2;
+  --paper-deep: #ebebe4;
+  --ink: #0b0b0c;
+  --muted: #51524d;
+  --line: rgba(11, 11, 12, .16);
+  --cream: #f7f7f2;
+}
+[data-theme="light"] body {
+  background-image:
+    radial-gradient(circle at 50% 100%, rgba(198, 244, 50, .23), transparent 31rem),
+    radial-gradient(circle at center, rgba(11, 11, 12, .045) 1px, transparent 1px);
+}
+[data-theme="light"] .marquee,
+[data-theme="light"] .education-section,
+[data-theme="light"] .site-footer { color: #f7f7f2; background: #0b0b0c; }
+
+.studio,
+.portfolio-editor-page {
+  --studio-bg: #0b0b0c;
+  --studio-panel: #131415;
+  --studio-panel-raised: #1b1d1a;
+  --studio-input: #09090a;
+  --studio-text: #f7f7f2;
+  --studio-muted: #b4b6aa;
+  --studio-line: rgba(247, 247, 242, .13);
+  --studio-accent: #c6f432;
+}
+.studio-sidebar, .portfolio-editor-nav { background: #101111; }
+.studio-brand .brand-mark { background: #c6f432; color: #0b0b0c; }
+.studio-new, .studio-manage-link, .editor-actions .button { background: #c6f432; color: #0b0b0c; }
+.studio-posts button:hover, .studio-posts button.active { box-shadow: inset 3px 0 #c6f432; }
+.field input:focus, .field textarea:focus, .field select:focus { border-color: #c6f432; box-shadow: 0 0 0 3px rgba(198, 244, 50, .16); }

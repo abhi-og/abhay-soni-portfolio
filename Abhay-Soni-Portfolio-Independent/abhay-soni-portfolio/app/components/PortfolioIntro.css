@@ -452,3 +452,25 @@
     padding: 16px 12px;
   }
 }
+
+/* Midnight / pure white / lime variation — matched to the public portfolio. */
+.intro-overlay { background: #0b0b0c; color: #f7f7f2; }
+.intro-overlay::before {
+  background-image:
+    radial-gradient(circle at 50% 40%, rgba(198, 244, 50, 0.14), transparent 36rem),
+    radial-gradient(circle at 85% 15%, rgba(247, 247, 242, 0.045), transparent 26rem),
+    linear-gradient(rgba(255, 255, 255, 0.022) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.022) 1px, transparent 1px);
+}
+.live-status-dot { background: #c6f432; box-shadow: 0 0 12px #c6f432; }
+.brand-title, .sound-pill-btn, .skip-pill-btn { color: #f7f7f2; }
+.sound-pill-btn:hover, .skip-pill-btn:hover { background: #c6f432; border-color: #c6f432; color: #0b0b0c; }
+.code-editor-window, .editor-code-body { background: #111112; }
+.code-editor-window { border-color: rgba(198, 244, 50, .24); box-shadow: 0 24px 80px rgba(0, 0, 0, .78), 0 0 35px rgba(198, 244, 50, .1); }
+.editor-status, .syn-string, .editor-subcaption, .act-pill, .compile-percent, .intro-progress-fill { color: #c6f432; }
+.syn-prop, .name-char.accent, .act-pill strong { color: #c6f432; }
+.syn-class, .code-content, .intro-title { color: #f7f7f2; }
+.act-pill { background: rgba(198, 244, 50, .09); border-color: rgba(198, 244, 50, .32); }
+.orbit-line, .orbital-ring { border-color: rgba(198, 244, 50, .38); }
+.signal-particle, .intro-progress-bar > span { background: #c6f432; box-shadow: 0 0 8px #c6f432; }
+.name-char.cyan { color: #f7f7f2; }

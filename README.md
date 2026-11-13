@@ -1,46 +1,34 @@
-# Abhay Soni — Personal Portfolio
+# Abhay Soni — Portfolio & Engineering Showcase
 
-A modern, responsive portfolio website where I showcase my projects, technical skills, certifications, education, and learning journey through blogs.
+A personal portfolio built with **React**, **Tailwind CSS**, and **Framer Motion** (`motion/react`).
 
-## Live Website
+## ✨ Features
 
-🌐 [abhaysoni.dpdns.org](https://abhaysoni.dpdns.org)
+- **Interactive 60fps Head Tracking**:
+  - The hero background video dynamically turns the character's head to follow the cursor's horizontal position across the screen using a smooth `requestAnimationFrame` lerp loop.
+  - Video is served locally with range requests for instant seeking, with automatic fallback.
+  - Includes a "Flip Direction" toggle button on desktop so you can easily toggle cursor tracking direction anytime.
+  - Responsive fallback with automatic native looping on mobile screens (< 1024px).
+- **Custom Typewriter Effect**:
+  - Real-time typing animation for `"building modern\nweb & AI software."` with blinking cursor indicator.
+- **Dynamic Service Selection**:
+  - Multi-select pill cards (`AI Integration`, `Digital`, `Full-Stack Dev`, `Other`) with spring-animated check marks.
+  - Bottom inquiry card that auto-expands and syncs with the contact section.
+- **Featured Projects**:
+  - Highlights **Prescripto — AI-Powered Clinical Workspace** (IEEE Hackathon project developed with Team Logiccoders).
+  - Highlights core features: prescription digitization, medication safety, generic medicine comparison, and dosage adherence.
+- **Academic & Skills Profile**:
+  - Details B.Tech in CSAI (Computer Science & Artificial Intelligence).
+  - Categorized skill breakdown for Frontend, Backend & Systems, and AI & CS foundations.
+- **Contact Integration**:
+  - Direct email action (`abhispacesoni@gmail.com`) with one-click copy button.
+  - Verified social links to GitHub ([@abhi-og](https://github.com/abhi-og)) and LinkedIn ([Abhay Soni](https://www.linkedin.com/in/abhay-soni-650b13410)).
 
-## About This Project
+## 🚀 Running Locally
 
-I built this portfolio as a personal space to document what I create and learn. Along with the public portfolio, it includes a private content studio that allows me to manage projects, skills, certificates, education, and blog articles.
+```bash
+cd /Users/abhi/.gemini/antigravity/scratch/interactive-hero
+npm run dev
+```
 
-## Key Features
-
-- Responsive design for mobile and desktop
-- Project, skill, and certificate archives
-- Search and filtering
-- Personal blog and writing section
-- Private owner login and content studio
-- Cloudflare D1 database integration
-- Dynamic sitemap for search engines
-- Custom domain and secure deployment
-- Automatic deployment through GitHub
-
-## Technology Stack
-
-- Next.js
-- React
-- TypeScript
-- CSS
-- Cloudflare Workers
-- Cloudflare D1
-- Drizzle ORM
-- GitHub
-
-## Author
-
-**Abhay Soni**  
-Computer Science & Artificial Intelligence Student
-
-- [Portfolio](https://abhaysoni.dpdns.org)
-- [LinkedIn](https://www.linkedin.com/in/abhay-soni-650b13410)
-
----
-
-Built with curiosity, learning, and continuous improvement.
+Open [http://localhost:5173/](http://localhost:5173/) in your browser.

@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { Sparkles, Flame, Code2, Compass } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
 
 export function IntroSection() {
   return (
@@ -10,7 +10,7 @@ export function IntroSection() {
           
           {/* Left Column: Text & Philosophy */}
           <div className="lg:col-span-7 flex flex-col justify-center space-y-7">
-            {/* Subtle pill tag */}
+            {/* Pill tag: Intro */}
             <motion.div
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -19,10 +19,10 @@ export function IntroSection() {
               className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#1C2E1E]/5 text-[#1C2E1E] text-xs font-semibold uppercase tracking-wider self-start"
             >
               <Sparkles className="w-3.5 h-3.5 text-[#2D4A30]" />
-              <span>Core Philosophy</span>
+              <span>Intro</span>
             </motion.div>
 
-            {/* Editorial Statement (NO underline) */}
+            {/* Editorial Statement */}
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -42,27 +42,6 @@ export function IntroSection() {
             >
               My defining approach is <strong className="text-black font-semibold">learning by building</strong>. Rather than keeping theory on paper, I believe real mastery comes from architecting systems from scratch, iterating through challenges, and shipping software that creates tangible value.
             </motion.p>
-
-            {/* Builder Mindset Card */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="bg-[#FAFBF9] border border-[#E8EAE6] rounded-2xl p-5 flex items-start gap-4 max-w-xl"
-            >
-              <div className="w-10 h-10 rounded-xl bg-white border border-[#E5E7E5] flex items-center justify-center shrink-0 text-emerald-800 shadow-xs">
-                <Flame className="w-5 h-5 text-[#2D4A30]" />
-              </div>
-              <div>
-                <h4 className="text-xs font-semibold uppercase tracking-wider text-[#1C2E1E] mb-1">
-                  The Builder Mindset
-                </h4>
-                <p className="text-xs sm:text-sm text-[#5A635A] leading-relaxed">
-                  Transforming complex concepts into production-grade interfaces, backend services, and hackathon prototypes.
-                </p>
-              </div>
-            </motion.div>
           </div>
 
           {/* Right Column: Floating Picture */}
@@ -84,7 +63,7 @@ export function IntroSection() {
                 }}
                 className="relative group cursor-pointer"
               >
-                {/* Decorative background glow & accent rings */}
+                {/* Decorative background glow */}
                 <div className="absolute -inset-3 bg-gradient-to-tr from-emerald-100/60 via-neutral-100/40 to-transparent rounded-[36px] blur-xl -z-10 group-hover:scale-105 transition-transform duration-500" />
 
                 {/* Picture Frame */}
